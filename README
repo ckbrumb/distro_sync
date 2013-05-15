@@ -1,8 +1,24 @@
-README - Distro Sync
+README - Distro 
+
+Distro Sync is a utility that collects a repository of your distribution points, then syncs them all from the master distribution point.
 
 SETUP:
 
-This script relies on the rsync binary that exists in most *nix-based Operating Systems. As such, the setup typically needed for rsync is still needed here. For syncing without requiring a password, that setup includes having a valid authorized_keys file on the child nodes that includes that public key from the master distribution point. To do so, follow the following steps:
+Put the following scripts in the same directory on the master distribution point:
+
+banner_builder.rb
+colorize.rb
+distro_sync.rb
+
+To run the program run the following from the distro_sync directory:
+
+ruby distro_sync.rb
+
+
+In first run, the script will create a folder in /usr/local called distro_sync, and inside of that folder it will create a hidden file (works as a server repository) called .distro_servers.
+
+
+This script relies on the rsync binary that exists in most *nix-based Operating Systems. As such, the setup typically needed for rsync is still needed here (e.g. ssh enabled, etc.). For syncing without requiring a password, that setup includes having a valid authorized_keys file on the child nodes that includes the public key from the master distribution point. To do so, follow these steps:
 
 1. On the primary distribution point, run the following command in Terminal to generate an RSA key so we do not need to enter a password during replication:
 
@@ -23,9 +39,8 @@ where <sshusername> is the actual admin account being used on the master distrib
 where <sshusername> is the local admin account on the master distribution point that is being used for SSH during the 'rsync' process. We may need to either create the 'authorized_keys' file in a standard text editor (nano, vi, TextEdit) or remove any existing keys from the 'authorized_keys2' file. It is also possible to add multiple keys from different secondary distribution points if we have more than one.
 
 
-To run the script, run `ruby /usr/local/distro_sync/distro_sync.rb`
-
-At first run you'll be asked to input the path to the share on the master distribution point. 
+At first run you'll be asked to input the path to the share on the master distribution point.
+ 
 ITEMS OF NOTE:
 
 Currently every distribution point should have the same user as owner of the share or we could run into permissions issues.
