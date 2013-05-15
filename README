@@ -1,4 +1,4 @@
-README - Distro 
+README - Distro Sync
 
 Distro Sync is a utility that collects a repository of your distribution points, then syncs them all from the master distribution point.
 
@@ -40,7 +40,7 @@ where <sshusername> is the local admin account on the master distribution point 
 
 
 At first run you'll be asked to input the path to the share on the master distribution point.
- 
+
 ITEMS OF NOTE:
 
 Currently every distribution point should have the same user as owner of the share or we could run into permissions issues.
