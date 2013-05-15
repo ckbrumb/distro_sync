@@ -1,0 +1,31 @@
+README - Distro Sync
+
+SETUP:
+
+This script relies on the rsync binary that exists in most *nix-based Operating Systems. As such, the setup typically needed for rsync is still needed here. For syncing without requiring a password, that setup includes having a valid authorized_keys file on the child nodes that includes that public key from the master distribution point. To do so, follow the following steps:
+
+1. On the primary distribution point, run the following command in Terminal to generate an RSA key so we do not need to enter a password during replication:
+
+sudo ssh-keygen -t rsa
+
+After entering the sudo password, we will also be prompted for a file location and a passphrase. It should be acceptable to leave both of these items blank, but make note of the file path if we do not specify one since it will be needed in the next step.
+
+2. Copy the newly created id_rsa.pub file from the primary distribution point to a temporary location on the master distribution point using a command similar to the following:
+
+sudo scp "/path/to/master/id_rsa.pub" <sshusername>@<masterAddress>:'"/path/to/secondary/temp/directory/"'
+
+where <sshusername> is the actual admin account being used on the master distribution point; <masterAddress> is the actual address (DNS or IP) for the master distribution point; and the paths are appropriate for the distribution points.
+
+3. Open the id_rsa.pub file in a plain text editor on the master distribution point and copy the contents into the following file on the master distribution point:
+
+/Users/<sshusername>/.ssh/authorized_keys
+
+where <sshusername> is the local admin account on the master distribution point that is being used for SSH during the 'rsync' process. We may need to either create the 'authorized_keys' file in a standard text editor (nano, vi, TextEdit) or remove any existing keys from the 'authorized_keys2' file. It is also possible to add multiple keys from different secondary distribution points if we have more than one.
+
+
+To run the script, run `ruby /usr/local/distro_sync/distro_sync.rb`
+
+At first run you'll be asked to input the path to the share on the master distribution point. 
+ITEMS OF NOTE:
+
+Currently every distribution point should have the same user as owner of the share or we could run into permissions issues.
