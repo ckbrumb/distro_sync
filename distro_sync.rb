@@ -209,7 +209,7 @@ until response == "exit" do
 	when "3"
 		a.delete_server
 	when "4"
-		a.change_master
+		a.change_share_path
 	when "5"
 		a.list_servers
 	when "exit"
