@@ -24,6 +24,3 @@ class BannerBuilder
 	end
 
 end
-
-#b = BannerBuilder.new("Your mom love me long time!")
-#b.build_banner
